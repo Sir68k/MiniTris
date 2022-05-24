@@ -6,9 +6,7 @@ This application serves as a template project for building code for the Sony Net
 
 # Demo
 
-[![Demo](https://img.youtube.com/vi/ZkSucYpvkWY/0.jpg)](https://www.youtube.com/watch?v=ZkSucYpvkWY)
-
-
+[![Demo](https://img.youtube.com/vi/IWdc0CjOyqo/0.jpg)](https://www.youtube.com/watch?v=IWdc0CjOyqo)
 ## Working devices
 
 Developed with a MZ-N520, confirmed working on an MZ-N710.
