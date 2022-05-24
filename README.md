@@ -4,6 +4,11 @@ A simple tetris game for Sony NetMD portables, currently targetting **v1.6 CXD26
 
 This application serves as a template project for building code for the Sony NetMD portables, while also demonstrating the results from the firmware reverse engineering efforts (see https://github.com/Sir68k/md-firmware).
 
+# Demo
+
+[![Demo](https://img.youtube.com/vi/ZkSucYpvkWY/0.jpg)](https://www.youtube.com/watch?v=ZkSucYpvkWY)
+
+
 ## Working devices
 
 Developed with a MZ-N520, confirmed working on an MZ-N710.
