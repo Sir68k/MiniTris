@@ -1,0 +1,586 @@
+
+build/minitris.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+02005500 <main>:
+ 2005500:	e92d4070 	push	{r4, r5, r6, lr}
+ 2005504:	e3a04000 	mov	r4, #0
+ 2005508:	e59f5060 	ldr	r5, [pc, #96]	; 2005570 <main+0x70>
+ 200550c:	e1a00004 	mov	r0, r4
+ 2005510:	e1a0e00f 	mov	lr, pc
+ 2005514:	e12fff15 	bx	r5
+ 2005518:	e2844001 	add	r4, r4, #1
+ 200551c:	e3540008 	cmp	r4, #8
+ 2005520:	1afffff9 	bne	200550c <main+0xc>
+ 2005524:	e1a01004 	mov	r1, r4
+ 2005528:	e59f0044 	ldr	r0, [pc, #68]	; 2005574 <main+0x74>
+ 200552c:	e59f3044 	ldr	r3, [pc, #68]	; 2005578 <main+0x78>
+ 2005530:	e1a0e00f 	mov	lr, pc
+ 2005534:	e12fff13 	bx	r3
+ 2005538:	e59f403c 	ldr	r4, [pc, #60]	; 200557c <main+0x7c>
+ 200553c:	ea000003 	b	2005550 <main+0x50>
+ 2005540:	eb00004d 	bl	200567c <update_display>
+ 2005544:	e3a0000a 	mov	r0, #10
+ 2005548:	e1a0e00f 	mov	lr, pc
+ 200554c:	e12fff14 	bx	r4
+ 2005550:	e3a00000 	mov	r0, #0
+ 2005554:	eb00004f 	bl	2005698 <checkButton>
+ 2005558:	e3500000 	cmp	r0, #0
+ 200555c:	0afffff7 	beq	2005540 <main+0x40>
+ 2005560:	eb00003f 	bl	2005664 <setup_display>
+ 2005564:	eb0000bc 	bl	200585c <playTetris>
+ 2005568:	e8bd4070 	pop	{r4, r5, r6, lr}
+ 200556c:	e12fff1e 	bx	lr
+ 2005570:	0007c5c1 	andeq	ip, r7, r1, asr #11
+ 2005574:	02005cb8 	andeq	r5, r0, #184, 24	; 0xb800
+ 2005578:	0003ecbd 			; <UNDEFINED> instruction: 0x0003ecbd
+ 200557c:	0007c201 	andeq	ip, r7, r1, lsl #4
+
+02005580 <get_sys_ltime>:
+ 2005580:	e59f3004 	ldr	r3, [pc, #4]	; 200558c <get_sys_ltime+0xc>
+ 2005584:	e5930068 	ldr	r0, [r3, #104]	; 0x68
+ 2005588:	e12fff1e 	bx	lr
+ 200558c:	02001000 	andeq	r1, r0, #0
+
+02005590 <get_key_state>:
+ 2005590:	e59f3004 	ldr	r3, [pc, #4]	; 200559c <get_key_state+0xc>
+ 2005594:	e5d3007f 	ldrb	r0, [r3, #127]	; 0x7f
+ 2005598:	e12fff1e 	bx	lr
+ 200559c:	02000800 	andeq	r0, r0, #0, 16
+
+020055a0 <reset>:
+ 20055a0:	e3a03621 	mov	r3, #34603008	; 0x2100000
+ 20055a4:	e5930000 	ldr	r0, [r3]
+ 20055a8:	e20000ff 	and	r0, r0, #255	; 0xff
+ 20055ac:	e12fff1e 	bx	lr
+
+020055b0 <set_pixel>:
+ 20055b0:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+ 20055b4:	e59fc03c 	ldr	ip, [pc, #60]	; 20055f8 <set_pixel+0x48>
+ 20055b8:	e0cc3c90 	smull	r3, ip, r0, ip
+ 20055bc:	e1a03fc0 	asr	r3, r0, #31
+ 20055c0:	e06330cc 	rsb	r3, r3, ip, asr #1
+ 20055c4:	e083c103 	add	ip, r3, r3, lsl #2
+ 20055c8:	e040000c 	sub	r0, r0, ip
+ 20055cc:	e2600005 	rsb	r0, r0, #5
+ 20055d0:	e59fc024 	ldr	ip, [pc, #36]	; 20055fc <set_pixel+0x4c>
+ 20055d4:	e2811004 	add	r1, r1, #4
+ 20055d8:	e0811183 	add	r1, r1, r3, lsl #3
+ 20055dc:	e7dc3001 	ldrb	r3, [ip, r1]
+ 20055e0:	e3a0e001 	mov	lr, #1
+ 20055e4:	e1c3301e 	bic	r3, r3, lr, lsl r0
+ 20055e8:	e1833012 	orr	r3, r3, r2, lsl r0
+ 20055ec:	e7cc3001 	strb	r3, [ip, r1]
+ 20055f0:	e49de004 	pop	{lr}		; (ldr lr, [sp], #4)
+ 20055f4:	e12fff1e 	bx	lr
+ 20055f8:	66666667 	strbtvs	r6, [r6], -r7, ror #12
+ 20055fc:	02005cc4 	andeq	r5, r0, #196, 24	; 0xc400
+
+02005600 <read_pixel>:
+ 2005600:	e3510006 	cmp	r1, #6
+ 2005604:	93a03000 	movls	r3, #0
+ 2005608:	83a03001 	movhi	r3, #1
+ 200560c:	e3500018 	cmp	r0, #24
+ 2005610:	c3833001 	orrgt	r3, r3, #1
+ 2005614:	e3530000 	cmp	r3, #0
+ 2005618:	0a000001 	beq	2005624 <read_pixel+0x24>
+ 200561c:	e3a00001 	mov	r0, #1
+ 2005620:	e12fff1e 	bx	lr
+ 2005624:	e59f3030 	ldr	r3, [pc, #48]	; 200565c <read_pixel+0x5c>
+ 2005628:	e0c32390 	smull	r2, r3, r0, r3
+ 200562c:	e1a02fc0 	asr	r2, r0, #31
+ 2005630:	e06220c3 	rsb	r2, r2, r3, asr #1
+ 2005634:	e59f3024 	ldr	r3, [pc, #36]	; 2005660 <read_pixel+0x60>
+ 2005638:	e0833182 	add	r3, r3, r2, lsl #3
+ 200563c:	e0833001 	add	r3, r3, r1
+ 2005640:	e5d33004 	ldrb	r3, [r3, #4]
+ 2005644:	e0822102 	add	r2, r2, r2, lsl #2
+ 2005648:	e0400002 	sub	r0, r0, r2
+ 200564c:	e2600005 	rsb	r0, r0, #5
+ 2005650:	e1a00053 	asr	r0, r3, r0
+ 2005654:	e2000001 	and	r0, r0, #1
+ 2005658:	e12fff1e 	bx	lr
+ 200565c:	66666667 	strbtvs	r6, [r6], -r7, ror #12
+ 2005660:	02005cc4 	andeq	r5, r0, #196, 24	; 0xc400
+
+02005664 <setup_display>:
+ 2005664:	e3a0100a 	mov	r1, #10
+ 2005668:	e59f0004 	ldr	r0, [pc, #4]	; 2005674 <setup_display+0x10>
+ 200566c:	e59f3004 	ldr	r3, [pc, #4]	; 2005678 <setup_display+0x14>
+ 2005670:	e12fff13 	bx	r3
+ 2005674:	02005c80 	andeq	r5, r0, #128, 24	; 0x8000
+ 2005678:	0003ecbd 			; <UNDEFINED> instruction: 0x0003ecbd
+
+0200567c <update_display>:
+ 200567c:	e3a0102c 	mov	r1, #44	; 0x2c
+ 2005680:	e59f0004 	ldr	r0, [pc, #4]	; 200568c <update_display+0x10>
+ 2005684:	e59f3004 	ldr	r3, [pc, #4]	; 2005690 <update_display+0x14>
+ 2005688:	e12fff13 	bx	r3
+ 200568c:	02005cc4 	andeq	r5, r0, #196, 24	; 0xc400
+ 2005690:	0003ecbd 			; <UNDEFINED> instruction: 0x0003ecbd
+
+02005694 <clear_display>:
+ 2005694:	e12fff1e 	bx	lr
+
+02005698 <checkButton>:
+ 2005698:	e92d4070 	push	{r4, r5, r6, lr}
+ 200569c:	e1a05000 	mov	r5, r0
+ 20056a0:	ebffffba 	bl	2005590 <get_key_state>
+ 20056a4:	e20040fe 	and	r4, r0, #254	; 0xfe
+ 20056a8:	e3540020 	cmp	r4, #32
+ 20056ac:	0a000007 	beq	20056d0 <checkButton+0x38>
+ 20056b0:	e59f304c 	ldr	r3, [pc, #76]	; 2005704 <checkButton+0x6c>
+ 20056b4:	e7d36005 	ldrb	r6, [r3, r5]
+ 20056b8:	ebffffb0 	bl	2005580 <get_sys_ltime>
+ 20056bc:	e1560004 	cmp	r6, r4
+ 20056c0:	0a000004 	beq	20056d8 <checkButton+0x40>
+ 20056c4:	e3a00000 	mov	r0, #0
+ 20056c8:	e8bd4070 	pop	{r4, r5, r6, lr}
+ 20056cc:	e12fff1e 	bx	lr
+ 20056d0:	ebffffb2 	bl	20055a0 <reset>
+ 20056d4:	eafffff5 	b	20056b0 <checkButton+0x18>
+ 20056d8:	e59f2028 	ldr	r2, [pc, #40]	; 2005708 <checkButton+0x70>
+ 20056dc:	e7923105 	ldr	r3, [r2, r5, lsl #2]
+ 20056e0:	e0403003 	sub	r3, r0, r3
+ 20056e4:	e3550003 	cmp	r5, #3
+ 20056e8:	03a01005 	moveq	r1, #5
+ 20056ec:	13a0100f 	movne	r1, #15
+ 20056f0:	e1530001 	cmp	r3, r1
+ 20056f4:	87820105 	strhi	r0, [r2, r5, lsl #2]
+ 20056f8:	83a00001 	movhi	r0, #1
+ 20056fc:	9afffff0 	bls	20056c4 <checkButton+0x2c>
+ 2005700:	eafffff0 	b	20056c8 <checkButton+0x30>
+ 2005704:	02005c8c 	andeq	r5, r0, #140, 24	; 0x8c00
+ 2005708:	02005cf0 	andeq	r5, r0, #240, 24	; 0xf000
+
+0200570c <drawTetromino>:
+ 200570c:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 2005710:	e24dd00c 	sub	sp, sp, #12
+ 2005714:	e5ddb030 	ldrb	fp, [sp, #48]	; 0x30
+ 2005718:	e2517000 	subs	r7, r1, #0
+ 200571c:	0a000022 	beq	20057ac <drawTetromino+0xa0>
+ 2005720:	e1a08000 	mov	r8, r0
+ 2005724:	e1a0a003 	mov	sl, r3
+ 2005728:	e3a06000 	mov	r6, #0
+ 200572c:	e2623007 	rsb	r3, r2, #7
+ 2005730:	e58d3004 	str	r3, [sp, #4]
+ 2005734:	ea000017 	b	2005798 <drawTetromino+0x8c>
+ 2005738:	e2843001 	add	r3, r4, #1
+ 200573c:	e2855001 	add	r5, r5, #1
+ 2005740:	e1570003 	cmp	r7, r3
+ 2005744:	0a00000f 	beq	2005788 <drawTetromino+0x7c>
+ 2005748:	e1a04003 	mov	r4, r3
+ 200574c:	e20430ff 	and	r3, r4, #255	; 0xff
+ 2005750:	e7d830a3 	ldrb	r3, [r8, r3, lsr #1]
+ 2005754:	e204c001 	and	ip, r4, #1
+ 2005758:	e086c10c 	add	ip, r6, ip, lsl #2
+ 200575c:	e26cc007 	rsb	ip, ip, #7
+ 2005760:	e1a03c53 	asr	r3, r3, ip
+ 2005764:	e3130001 	tst	r3, #1
+ 2005768:	0afffff2 	beq	2005738 <drawTetromino+0x2c>
+ 200576c:	e3550000 	cmp	r5, #0
+ 2005770:	bafffff0 	blt	2005738 <drawTetromino+0x2c>
+ 2005774:	e1a0200b 	mov	r2, fp
+ 2005778:	e1a01009 	mov	r1, r9
+ 200577c:	e1a00005 	mov	r0, r5
+ 2005780:	ebffff8a 	bl	20055b0 <set_pixel>
+ 2005784:	eaffffeb 	b	2005738 <drawTetromino+0x2c>
+ 2005788:	e2863001 	add	r3, r6, #1
+ 200578c:	e1560004 	cmp	r6, r4
+ 2005790:	0a000005 	beq	20057ac <drawTetromino+0xa0>
+ 2005794:	e1a06003 	mov	r6, r3
+ 2005798:	e1a0500a 	mov	r5, sl
+ 200579c:	e3a04000 	mov	r4, #0
+ 20057a0:	e59d3004 	ldr	r3, [sp, #4]
+ 20057a4:	e0439006 	sub	r9, r3, r6
+ 20057a8:	eaffffe7 	b	200574c <drawTetromino+0x40>
+ 20057ac:	e28dd00c 	add	sp, sp, #12
+ 20057b0:	e8bd4ff0 	pop	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 20057b4:	e12fff1e 	bx	lr
+
+020057b8 <checkCollision>:
+ 20057b8:	e3530018 	cmp	r3, #24
+ 20057bc:	0a000024 	beq	2005854 <checkCollision+0x9c>
+ 20057c0:	e92d47f0 	push	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 20057c4:	e1a06000 	mov	r6, r0
+ 20057c8:	e1a05001 	mov	r5, r1
+ 20057cc:	e1a07003 	mov	r7, r3
+ 20057d0:	e3510000 	cmp	r1, #0
+ 20057d4:	12629007 	rsbne	r9, r2, #7
+ 20057d8:	13a08000 	movne	r8, #0
+ 20057dc:	1a00001a 	bne	200584c <checkCollision+0x94>
+ 20057e0:	e3a00000 	mov	r0, #0
+ 20057e4:	ea000011 	b	2005830 <checkCollision+0x78>
+ 20057e8:	e2843001 	add	r3, r4, #1
+ 20057ec:	e1550003 	cmp	r5, r3
+ 20057f0:	0a000010 	beq	2005838 <checkCollision+0x80>
+ 20057f4:	e1a04003 	mov	r4, r3
+ 20057f8:	e20430ff 	and	r3, r4, #255	; 0xff
+ 20057fc:	e7d630a3 	ldrb	r3, [r6, r3, lsr #1]
+ 2005800:	e2042001 	and	r2, r4, #1
+ 2005804:	e0882102 	add	r2, r8, r2, lsl #2
+ 2005808:	e2622007 	rsb	r2, r2, #7
+ 200580c:	e1a02253 	asr	r2, r3, r2
+ 2005810:	e3120001 	tst	r2, #1
+ 2005814:	0afffff3 	beq	20057e8 <checkCollision+0x30>
+ 2005818:	e1a01009 	mov	r1, r9
+ 200581c:	e0840007 	add	r0, r4, r7
+ 2005820:	ebffff76 	bl	2005600 <read_pixel>
+ 2005824:	e3500000 	cmp	r0, #0
+ 2005828:	0affffee 	beq	20057e8 <checkCollision+0x30>
+ 200582c:	e3a00001 	mov	r0, #1
+ 2005830:	e8bd47f0 	pop	{r4, r5, r6, r7, r8, r9, sl, lr}
+ 2005834:	e12fff1e 	bx	lr
+ 2005838:	e2883001 	add	r3, r8, #1
+ 200583c:	e2499001 	sub	r9, r9, #1
+ 2005840:	e1580004 	cmp	r8, r4
+ 2005844:	0affffe5 	beq	20057e0 <checkCollision+0x28>
+ 2005848:	e1a08003 	mov	r8, r3
+ 200584c:	e3a04000 	mov	r4, #0
+ 2005850:	eaffffe8 	b	20057f8 <checkCollision+0x40>
+ 2005854:	e3a00001 	mov	r0, #1
+ 2005858:	e12fff1e 	bx	lr
+
+0200585c <playTetris>:
+ 200585c:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 2005860:	e24dd014 	sub	sp, sp, #20
+ 2005864:	ebffff45 	bl	2005580 <get_sys_ltime>
+ 2005868:	e59f33f8 	ldr	r3, [pc, #1016]	; 2005c68 <playTetris+0x40c>
+ 200586c:	e0831390 	umull	r1, r3, r0, r3
+ 2005870:	e0401003 	sub	r1, r0, r3
+ 2005874:	e08330a1 	add	r3, r3, r1, lsr #1
+ 2005878:	e1a03123 	lsr	r3, r3, #2
+ 200587c:	e0633183 	rsb	r3, r3, r3, lsl #3
+ 2005880:	e0403003 	sub	r3, r0, r3
+ 2005884:	e59f23e0 	ldr	r2, [pc, #992]	; 2005c6c <playTetris+0x410>
+ 2005888:	e7f23003 	ldrb	r3, [r2, r3]!
+ 200588c:	e5cd300c 	strb	r3, [sp, #12]
+ 2005890:	e3a08000 	mov	r8, #0
+ 2005894:	e5cd800d 	strb	r8, [sp, #13]
+ 2005898:	e5d26008 	ldrb	r6, [r2, #8]
+ 200589c:	e3a03001 	mov	r3, #1
+ 20058a0:	e58d3000 	str	r3, [sp]
+ 20058a4:	e3e03000 	mvn	r3, #0
+ 20058a8:	e3a02002 	mov	r2, #2
+ 20058ac:	e1a01006 	mov	r1, r6
+ 20058b0:	e28d000c 	add	r0, sp, #12
+ 20058b4:	ebffff94 	bl	200570c <drawTetromino>
+ 20058b8:	ebffff6f 	bl	200567c <update_display>
+ 20058bc:	e58d8000 	str	r8, [sp]
+ 20058c0:	e3e03000 	mvn	r3, #0
+ 20058c4:	e3a02002 	mov	r2, #2
+ 20058c8:	e1a01006 	mov	r1, r6
+ 20058cc:	e28d000c 	add	r0, sp, #12
+ 20058d0:	ebffff8d 	bl	200570c <drawTetromino>
+ 20058d4:	e3e09000 	mvn	r9, #0
+ 20058d8:	e3a07002 	mov	r7, #2
+ 20058dc:	ea00003e 	b	20059dc <playTetris+0x180>
+ 20058e0:	e3a01008 	mov	r1, #8
+ 20058e4:	e59f0384 	ldr	r0, [pc, #900]	; 2005c70 <playTetris+0x414>
+ 20058e8:	e59f5384 	ldr	r5, [pc, #900]	; 2005c74 <playTetris+0x418>
+ 20058ec:	e1a0e00f 	mov	lr, pc
+ 20058f0:	e12fff15 	bx	r5
+ 20058f4:	ebffff60 	bl	200567c <update_display>
+ 20058f8:	e3a00064 	mov	r0, #100	; 0x64
+ 20058fc:	e59f4374 	ldr	r4, [pc, #884]	; 2005c78 <playTetris+0x41c>
+ 2005900:	e1a0e00f 	mov	lr, pc
+ 2005904:	e12fff14 	bx	r4
+ 2005908:	e3a01008 	mov	r1, #8
+ 200590c:	e59f0368 	ldr	r0, [pc, #872]	; 2005c7c <playTetris+0x420>
+ 2005910:	e1a0e00f 	mov	lr, pc
+ 2005914:	e12fff15 	bx	r5
+ 2005918:	ebffff57 	bl	200567c <update_display>
+ 200591c:	e3a000c8 	mov	r0, #200	; 0xc8
+ 2005920:	e1a0e00f 	mov	lr, pc
+ 2005924:	e12fff14 	bx	r4
+ 2005928:	ebffff1c 	bl	20055a0 <reset>
+ 200592c:	e28dd014 	add	sp, sp, #20
+ 2005930:	e8bd4ff0 	pop	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 2005934:	e12fff1e 	bx	lr
+ 2005938:	e3a0b000 	mov	fp, #0
+ 200593c:	ea000001 	b	2005948 <playTetris+0xec>
+ 2005940:	e1a09004 	mov	r9, r4
+ 2005944:	e3a0b001 	mov	fp, #1
+ 2005948:	e3a00001 	mov	r0, #1
+ 200594c:	ebffff51 	bl	2005698 <checkButton>
+ 2005950:	e3500000 	cmp	r0, #0
+ 2005954:	1a00004d 	bne	2005a90 <playTetris+0x234>
+ 2005958:	e3a00002 	mov	r0, #2
+ 200595c:	ebffff4d 	bl	2005698 <checkButton>
+ 2005960:	e3500000 	cmp	r0, #0
+ 2005964:	1a000055 	bne	2005ac0 <playTetris+0x264>
+ 2005968:	e3a00000 	mov	r0, #0
+ 200596c:	ebffff49 	bl	2005698 <checkButton>
+ 2005970:	e3500000 	cmp	r0, #0
+ 2005974:	1a00005d 	bne	2005af0 <playTetris+0x294>
+ 2005978:	e3a0a018 	mov	sl, #24
+ 200597c:	e3a05000 	mov	r5, #0
+ 2005980:	e1a04005 	mov	r4, r5
+ 2005984:	e1a01004 	mov	r1, r4
+ 2005988:	e1a0000a 	mov	r0, sl
+ 200598c:	ebffff1b 	bl	2005600 <read_pixel>
+ 2005990:	e1855410 	orr	r5, r5, r0, lsl r4
+ 2005994:	e2844001 	add	r4, r4, #1
+ 2005998:	e3540007 	cmp	r4, #7
+ 200599c:	1afffff8 	bne	2005984 <playTetris+0x128>
+ 20059a0:	e24aa001 	sub	sl, sl, #1
+ 20059a4:	e355007f 	cmp	r5, #127	; 0x7f
+ 20059a8:	0a000080 	beq	2005bb0 <playTetris+0x354>
+ 20059ac:	e37a0001 	cmn	sl, #1
+ 20059b0:	1afffff1 	bne	200597c <playTetris+0x120>
+ 20059b4:	e35b0000 	cmp	fp, #0
+ 20059b8:	1a00009a 	bne	2005c28 <playTetris+0x3cc>
+ 20059bc:	e3a00003 	mov	r0, #3
+ 20059c0:	ebffff34 	bl	2005698 <checkButton>
+ 20059c4:	e3500000 	cmp	r0, #0
+ 20059c8:	13a08000 	movne	r8, #0
+ 20059cc:	03a00004 	moveq	r0, #4
+ 20059d0:	059f32a0 	ldreq	r3, [pc, #672]	; 2005c78 <playTetris+0x41c>
+ 20059d4:	01a0e00f 	moveq	lr, pc
+ 20059d8:	012fff13 	bxeq	r3
+ 20059dc:	ebfffee7 	bl	2005580 <get_sys_ltime>
+ 20059e0:	e0403008 	sub	r3, r0, r8
+ 20059e4:	e3530019 	cmp	r3, #25
+ 20059e8:	9affffd2 	bls	2005938 <playTetris+0xdc>
+ 20059ec:	e2894001 	add	r4, r9, #1
+ 20059f0:	e1a04c04 	lsl	r4, r4, #24
+ 20059f4:	e1a04c44 	asr	r4, r4, #24
+ 20059f8:	e1a08000 	mov	r8, r0
+ 20059fc:	e1a03004 	mov	r3, r4
+ 2005a00:	e1a02007 	mov	r2, r7
+ 2005a04:	e1a01006 	mov	r1, r6
+ 2005a08:	e28d000c 	add	r0, sp, #12
+ 2005a0c:	ebffff69 	bl	20057b8 <checkCollision>
+ 2005a10:	e3500000 	cmp	r0, #0
+ 2005a14:	0affffc9 	beq	2005940 <playTetris+0xe4>
+ 2005a18:	e3a0b001 	mov	fp, #1
+ 2005a1c:	e58db000 	str	fp, [sp]
+ 2005a20:	e1a03009 	mov	r3, r9
+ 2005a24:	e1a02007 	mov	r2, r7
+ 2005a28:	e1a01006 	mov	r1, r6
+ 2005a2c:	e28d000c 	add	r0, sp, #12
+ 2005a30:	ebffff35 	bl	200570c <drawTetromino>
+ 2005a34:	e59f322c 	ldr	r3, [pc, #556]	; 2005c68 <playTetris+0x40c>
+ 2005a38:	e0832398 	umull	r2, r3, r8, r3
+ 2005a3c:	e0482003 	sub	r2, r8, r3
+ 2005a40:	e0833b32 	add	r3, r3, r2, lsr fp
+ 2005a44:	e1a03123 	lsr	r3, r3, #2
+ 2005a48:	e0633183 	rsb	r3, r3, r3, lsl #3
+ 2005a4c:	e0483003 	sub	r3, r8, r3
+ 2005a50:	e59f2214 	ldr	r2, [pc, #532]	; 2005c6c <playTetris+0x410>
+ 2005a54:	e7f23003 	ldrb	r3, [r2, r3]!
+ 2005a58:	e5cd300c 	strb	r3, [sp, #12]
+ 2005a5c:	e3a03000 	mov	r3, #0
+ 2005a60:	e5cd300d 	strb	r3, [sp, #13]
+ 2005a64:	e5d26008 	ldrb	r6, [r2, #8]
+ 2005a68:	e3e03000 	mvn	r3, #0
+ 2005a6c:	e3a02002 	mov	r2, #2
+ 2005a70:	e1a01006 	mov	r1, r6
+ 2005a74:	e28d000c 	add	r0, sp, #12
+ 2005a78:	ebffff4e 	bl	20057b8 <checkCollision>
+ 2005a7c:	e3500000 	cmp	r0, #0
+ 2005a80:	1affff96 	bne	20058e0 <playTetris+0x84>
+ 2005a84:	e3e09000 	mvn	r9, #0
+ 2005a88:	e3a07002 	mov	r7, #2
+ 2005a8c:	eaffffad 	b	2005948 <playTetris+0xec>
+ 2005a90:	e2474001 	sub	r4, r7, #1
+ 2005a94:	e1a04c04 	lsl	r4, r4, #24
+ 2005a98:	e1a04c44 	asr	r4, r4, #24
+ 2005a9c:	e1a03009 	mov	r3, r9
+ 2005aa0:	e1a02004 	mov	r2, r4
+ 2005aa4:	e1a01006 	mov	r1, r6
+ 2005aa8:	e28d000c 	add	r0, sp, #12
+ 2005aac:	ebffff41 	bl	20057b8 <checkCollision>
+ 2005ab0:	e3500000 	cmp	r0, #0
+ 2005ab4:	01a07004 	moveq	r7, r4
+ 2005ab8:	e3a0b001 	mov	fp, #1
+ 2005abc:	eaffffa5 	b	2005958 <playTetris+0xfc>
+ 2005ac0:	e2874001 	add	r4, r7, #1
+ 2005ac4:	e1a04c04 	lsl	r4, r4, #24
+ 2005ac8:	e1a04c44 	asr	r4, r4, #24
+ 2005acc:	e1a03009 	mov	r3, r9
+ 2005ad0:	e1a02004 	mov	r2, r4
+ 2005ad4:	e1a01006 	mov	r1, r6
+ 2005ad8:	e28d000c 	add	r0, sp, #12
+ 2005adc:	ebffff35 	bl	20057b8 <checkCollision>
+ 2005ae0:	e3500000 	cmp	r0, #0
+ 2005ae4:	01a07004 	moveq	r7, r4
+ 2005ae8:	e3a0b001 	mov	fp, #1
+ 2005aec:	eaffff9d 	b	2005968 <playTetris+0x10c>
+ 2005af0:	e3a0e000 	mov	lr, #0
+ 2005af4:	e1cde0b8 	strh	lr, [sp, #8]
+ 2005af8:	e156000e 	cmp	r6, lr
+ 2005afc:	12465001 	subne	r5, r6, #1
+ 2005b00:	120550ff 	andne	r5, r5, #255	; 0xff
+ 2005b04:	128d0008 	addne	r0, sp, #8
+ 2005b08:	0a000022 	beq	2005b98 <playTetris+0x33c>
+ 2005b0c:	e045200e 	sub	r2, r5, lr
+ 2005b10:	e20230ff 	and	r3, r2, #255	; 0xff
+ 2005b14:	e08040a3 	add	r4, r0, r3, lsr #1
+ 2005b18:	e7d030a3 	ldrb	r3, [r0, r3, lsr #1]
+ 2005b1c:	e202c001 	and	ip, r2, #1
+ 2005b20:	e1a0c10c 	lsl	ip, ip, #2
+ 2005b24:	e3a01000 	mov	r1, #0
+ 2005b28:	e26cc007 	rsb	ip, ip, #7
+ 2005b2c:	e20120ff 	and	r2, r1, #255	; 0xff
+ 2005b30:	e28da010 	add	sl, sp, #16
+ 2005b34:	e08a20a2 	add	r2, sl, r2, lsr #1
+ 2005b38:	e5522004 	ldrb	r2, [r2, #-4]
+ 2005b3c:	e201a001 	and	sl, r1, #1
+ 2005b40:	e08ea10a 	add	sl, lr, sl, lsl #2
+ 2005b44:	e26aa007 	rsb	sl, sl, #7
+ 2005b48:	e1a02a52 	asr	r2, r2, sl
+ 2005b4c:	e2022001 	and	r2, r2, #1
+ 2005b50:	e04ca001 	sub	sl, ip, r1
+ 2005b54:	e1833a12 	orr	r3, r3, r2, lsl sl
+ 2005b58:	e20330ff 	and	r3, r3, #255	; 0xff
+ 2005b5c:	e2811001 	add	r1, r1, #1
+ 2005b60:	e1510006 	cmp	r1, r6
+ 2005b64:	1afffff0 	bne	2005b2c <playTetris+0x2d0>
+ 2005b68:	e5c43000 	strb	r3, [r4]
+ 2005b6c:	e28ee001 	add	lr, lr, #1
+ 2005b70:	e15e0006 	cmp	lr, r6
+ 2005b74:	1affffe4 	bne	2005b0c <playTetris+0x2b0>
+ 2005b78:	e1a03009 	mov	r3, r9
+ 2005b7c:	e1a02007 	mov	r2, r7
+ 2005b80:	e1a01006 	mov	r1, r6
+ 2005b84:	ebffff0b 	bl	20057b8 <checkCollision>
+ 2005b88:	e3500000 	cmp	r0, #0
+ 2005b8c:	0a000003 	beq	2005ba0 <playTetris+0x344>
+ 2005b90:	e3a0b001 	mov	fp, #1
+ 2005b94:	eaffff77 	b	2005978 <playTetris+0x11c>
+ 2005b98:	e28d0008 	add	r0, sp, #8
+ 2005b9c:	eafffff5 	b	2005b78 <playTetris+0x31c>
+ 2005ba0:	e1dd30b8 	ldrh	r3, [sp, #8]
+ 2005ba4:	e1cd30bc 	strh	r3, [sp, #12]
+ 2005ba8:	eafffff8 	b	2005b90 <playTetris+0x334>
+ 2005bac:	e24aa001 	sub	sl, sl, #1
+ 2005bb0:	e37a0001 	cmn	sl, #1
+ 2005bb4:	0a000013 	beq	2005c08 <playTetris+0x3ac>
+ 2005bb8:	e28ab001 	add	fp, sl, #1
+ 2005bbc:	e3a05000 	mov	r5, #0
+ 2005bc0:	e1a04005 	mov	r4, r5
+ 2005bc4:	e1a01004 	mov	r1, r4
+ 2005bc8:	e1a0000a 	mov	r0, sl
+ 2005bcc:	ebfffe8b 	bl	2005600 <read_pixel>
+ 2005bd0:	e1855410 	orr	r5, r5, r0, lsl r4
+ 2005bd4:	e2844001 	add	r4, r4, #1
+ 2005bd8:	e3540007 	cmp	r4, #7
+ 2005bdc:	1afffff8 	bne	2005bc4 <playTetris+0x368>
+ 2005be0:	e3a04000 	mov	r4, #0
+ 2005be4:	e1a02455 	asr	r2, r5, r4
+ 2005be8:	e2022001 	and	r2, r2, #1
+ 2005bec:	e1a01004 	mov	r1, r4
+ 2005bf0:	e1a0000b 	mov	r0, fp
+ 2005bf4:	ebfffe6d 	bl	20055b0 <set_pixel>
+ 2005bf8:	e2844001 	add	r4, r4, #1
+ 2005bfc:	e3540007 	cmp	r4, #7
+ 2005c00:	1afffff7 	bne	2005be4 <playTetris+0x388>
+ 2005c04:	eaffffe8 	b	2005bac <playTetris+0x350>
+ 2005c08:	e3a04000 	mov	r4, #0
+ 2005c0c:	e3a02000 	mov	r2, #0
+ 2005c10:	e1a01004 	mov	r1, r4
+ 2005c14:	e1a00002 	mov	r0, r2
+ 2005c18:	ebfffe64 	bl	20055b0 <set_pixel>
+ 2005c1c:	e2844001 	add	r4, r4, #1
+ 2005c20:	e3540007 	cmp	r4, #7
+ 2005c24:	1afffff8 	bne	2005c0c <playTetris+0x3b0>
+ 2005c28:	e3a03001 	mov	r3, #1
+ 2005c2c:	e58d3000 	str	r3, [sp]
+ 2005c30:	e1a03009 	mov	r3, r9
+ 2005c34:	e1a02007 	mov	r2, r7
+ 2005c38:	e1a01006 	mov	r1, r6
+ 2005c3c:	e28d000c 	add	r0, sp, #12
+ 2005c40:	ebfffeb1 	bl	200570c <drawTetromino>
+ 2005c44:	ebfffe8c 	bl	200567c <update_display>
+ 2005c48:	e3a03000 	mov	r3, #0
+ 2005c4c:	e58d3000 	str	r3, [sp]
+ 2005c50:	e1a03009 	mov	r3, r9
+ 2005c54:	e1a02007 	mov	r2, r7
+ 2005c58:	e1a01006 	mov	r1, r6
+ 2005c5c:	e28d000c 	add	r0, sp, #12
+ 2005c60:	ebfffea9 	bl	200570c <drawTetromino>
+ 2005c64:	eaffff54 	b	20059bc <playTetris+0x160>
+ 2005c68:	24924925 	ldrcs	r4, [r2], #2341	; 0x925
+ 2005c6c:	02005c90 	andeq	r5, r0, #144, 24	; 0x9000
+ 2005c70:	02005ca0 	andeq	r5, r0, #160, 24	; 0xa000
+ 2005c74:	0003ecbd 			; <UNDEFINED> instruction: 0x0003ecbd
+ 2005c78:	0007c201 	andeq	ip, r7, r1, lsl #4
+ 2005c7c:	02005cac 	andeq	r5, r0, #172, 24	; 0xac00
+
+02005c80 <setup_cmd>:
+ 2005c80:	00c02c0f 	sbceq	r2, r0, pc, lsl #24
+ 2005c84:	02010020 	andeq	r0, r1, #32
+ 2005c88:	00000403 	andeq	r0, r0, r3, lsl #8
+
+02005c8c <key_map>:
+ 2005c8c:	6e747a6c 	vsubvs.f32	s15, s8, s25
+
+02005c90 <tetrominos>:
+ 2005c90:	6c4ecc0f 	mcrrvs	12, 0, ip, lr, cr15
+ 2005c94:	002e8ec6 	eoreq	r8, lr, r6, asr #29
+
+02005c98 <tetrominosS>:
+ 2005c98:	03030204 	movweq	r0, #12804	; 0x3204
+ 2005c9c:	00030303 	andeq	r0, r3, r3, lsl #6
+ 2005ca0:	472000c0 	strmi	r0, [r0, -r0, asr #1]!
+ 2005ca4:	20454d41 	subcs	r4, r5, r1, asr #26
+ 2005ca8:	00000000 	andeq	r0, r0, r0
+ 2005cac:	4f2000c0 	svcmi	0x002000c0
+ 2005cb0:	20524556 	subscs	r4, r2, r6, asr r5
+ 2005cb4:	00000000 	andeq	r0, r0, r0
+ 2005cb8:	655400c0 	ldrbvs	r0, [r4, #-192]	; 0xffffff40
+ 2005cbc:	73697274 	cmnvc	r9, #116, 4	; 0x40000007
+ 2005cc0:	00000000 	andeq	r0, r0, r0
+
+02005cc4 <display_cmd_buffer>:
+ 2005cc4:	00d02c0f 	sbcseq	r2, r0, pc, lsl #24
+	...
+
+02005cf0 <lastClick>:
+	...
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	bcc	10d0d24 <main-0xf347dc>
+   4:	4e472820 	cdpmi	8, 4, cr2, cr7, cr0, {1}
+   8:	6f542055 	svcvs	0x00542055
+   c:	68636c6f 	stmdavs	r3!, {r0, r1, r2, r3, r5, r6, sl, fp, sp, lr}^
+  10:	206e6961 	rsbcs	r6, lr, r1, ror #18
+  14:	20726f66 	rsbscs	r6, r2, r6, ror #30
+  18:	20656874 	rsbcs	r6, r5, r4, ror r8
+  1c:	206d7241 	rsbcs	r7, sp, r1, asr #4
+  20:	68637241 	stmdavs	r3!, {r0, r6, r9, ip, sp, lr}^
+  24:	63657469 	cmnvs	r5, #1761607680	; 0x69000000
+  28:	65727574 	ldrbvs	r7, [r2, #-1396]!	; 0xfffffa8c
+  2c:	2e313120 	rsfcssp	f3, f1, f0
+  30:	30322d32 	eorscc	r2, r2, r2, lsr sp
+  34:	302e3232 	eorcc	r3, lr, r2, lsr r2
+  38:	61282032 			; <UNDEFINED> instruction: 0x61282032
+  3c:	312d6d72 			; <UNDEFINED> instruction: 0x312d6d72
+  40:	34312e31 	ldrtcc	r2, [r1], #-3633	; 0xfffff1cf
+  44:	31202929 			; <UNDEFINED> instruction: 0x31202929
+  48:	2e322e31 	mrccs	14, 1, r2, cr2, cr1, {1}
+  4c:	30322031 	eorscc	r2, r2, r1, lsr r0
+  50:	31303232 	teqcc	r0, r2, lsr r2
+  54:	Address 0x0000000000000054 is out of bounds.
+
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00002941 	andeq	r2, r0, r1, asr #18
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	0000001f 	andeq	r0, r0, pc, lsl r0
+  10:	00543405 	subseq	r3, r4, r5, lsl #8
+  14:	01080206 	tsteq	r8, r6, lsl #4
+  18:	04120109 	ldreq	r0, [r2], #-265	; 0xfffffef7
+  1c:	01150114 	tsteq	r5, r4, lsl r1
+  20:	01180317 	tsteq	r8, r7, lsl r3
+  24:	011a0119 	tsteq	sl, r9, lsl r1
+  28:	Address 0x0000000000000028 is out of bounds.
+
