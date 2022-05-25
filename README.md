@@ -13,6 +13,6 @@ Developed with a MZ-N520, confirmed working on an MZ-N710.
 
 ## Running
 
-This binary (build/minitris.bin) needs to be loaded to `0x02005500` in memory and then executed. Support for loading applications will soon be found in Asivery's NetMD IDE (https://github.com/asivery/netmd-asm-ide).
+This binary (build/minitris.bin) needs to be loaded to `0x02005500` in memory and then executed. Asivery's NetMD IDE supports loading uploading raw hex data to a particular memory offset and executing it (https://github.com/asivery/netmd-asm-ide).
 
 Press "Prev" to start the game. During the game you can press "Menu" to exit (it will restart the device).
