@@ -3,6 +3,8 @@
 
 #ifdef FW_S16
     #include "./firmware/firmware_S1.6.h"
+#elif defined FW_S15
+    #include "./firmware/firmware_S1.5.h"
 #elif defined FW_S14
     #include "./firmware/firmware_S1.4.h"
 #elif defined FW_S13
