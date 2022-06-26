@@ -29,13 +29,17 @@ LDFLAGS += -T cxd2680.ld #--just-symbols cxd2680v1.6.sym
 SRCS = firmware.c display.c button.c tetris.c main.c 
 INCLUDES += ./
 
-CFLAGS += $(foreach i,$(INCLUDES),-I$(i))
+TARGET_VERSION=S16
+
+CFLAGS += $(foreach i,$(INCLUDES),-I$(i)) -DFW_${TARGET_VERSION}=1
 OBJS = $(patsubst %.c,build/objs/%.o,$(SRCS))
 #CFLAGS += $(foreach d,$(DEFINES),-D$(d))
 
 all: build/minitris.bin
-	hexdump -v -e '"\\" "x" 1/1 "%02X"' build/minitris.bin
+	hexdump -v -e '"\\" "x" 1/1 "%02X"' build/minitris.bin > build/minitris_str_${TARGET_VERSION}.hex
+	hexdump -v -e '1/1 "%02X"' build/minitris.bin > build/minitris_${TARGET_VERSION}.hex
 	wc -c build/minitris.bin
+	cp build/minitris.bin build/minitris_${TARGET_VERSION}.bin
 
 build:
 	mkdir -p build
