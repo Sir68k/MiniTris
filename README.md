@@ -1,6 +1,6 @@
 # MiniTris
 
-A simple tetris game for Sony NetMD portables, currently targetting **v1.6 CXD2680** devices with single row displays. 
+A simple tetris game for Sony NetMD portables, currently targetting **Type-S NetMD (CXD2680)** devices with single row displays. 
 
 This application serves as a template project for building code for the Sony NetMD portables, while also demonstrating the results from the firmware reverse engineering efforts (see https://github.com/Sir68k/md-firmware).
 
