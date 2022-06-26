@@ -14,7 +14,7 @@ Developed with a MZ-N520, confirmed working on an MZ-N710.
 ## Compatibilty
 
 __Type-S (CXD2678, CXD2680) devices:__
-- The build directory contains builds for firmwares S1.0, S1.1, S1.3, S1.4, and S1.6. Firmwares S1.2 and S1.5 are currently unsupported as no devices running them have been encountered. If you have a device with either firmware version S1.2 or S1.5, please dump your firmware using https://web.minidisc.wiki/ and contact us!
+- The build directory contains builds for firmwares S1.0, S1.1, S1.3, S1.4, S1.5, and S1.6. Firmwares S1.2 is currently unsupported as no devices running it have been encountered. If you have a device with firmware version S1.2, please dump your firmware using https://web.minidisc.wiki/ and contact us!
 
 __Type-R (CXD2677) devices:__
 - No support yet, maybe be added in the future.
