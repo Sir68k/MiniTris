@@ -27,5 +27,5 @@ MiniTris is built-in Web MiniDisc Pro (https://web.minidisc.wiki/) and you can l
 
 ### Manual method
 
-This binary (build/minitris.bin) needs to be loaded to `0x02005500` in memory and then executed. Asivery's NetMD IDE supports loading uploading raw hex data to a particular memory offset and executing it (https://github.com/asivery/netmd-asm-ide).
+The correct hex build (hex_builds/minitris_yourversion.hex) needs to be loaded to `0x02005500` in memory and then executed. Asivery's NetMD IDE supports loading uploading raw hex data to a particular memory offset and executing it (https://github.com/asivery/netmd-asm-ide).
 
