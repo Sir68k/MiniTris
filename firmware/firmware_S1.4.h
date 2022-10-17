@@ -6,7 +6,8 @@ typedef void func2(uint32_t a, uint32_t b);
 
 // general
 static func* start_service_mode = (func*)0x00050f85;
-uint8_t reset();
+static func* reset = (func*)0x3c; // jump to boot
+
 
 // tron
 

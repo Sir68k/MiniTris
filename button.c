@@ -1,8 +1,8 @@
 #include "button.h"
 #include "firmware.h"
 
-static const enum KeyState key_map[] = { KeyPrev, KeyStop, KeyPlay, KeyNext };
-static uint32_t lastClick[] = {0, 0, 0, 0};
+static const enum KeyState key_map[] = { KeyPrev, KeyStop, KeyPlay, KeyNext, KeyPause };
+static uint32_t lastClick[] = {0, 0, 0, 0, 0};
 
 int checkButton(enum Button button)
 {

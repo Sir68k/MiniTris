@@ -5,8 +5,7 @@ typedef void func1(uint32_t a);
 typedef void func2(uint32_t a, uint32_t b);
 
 // general
-static func* start_service_mode = (func*)0x51fe5;
-uint8_t reset();
+static func* reset = (func*)0x3c; // jump to boot
 
 // tron
 
@@ -19,6 +18,9 @@ uint32_t get_sys_ltime();
 // display
 typedef void func_queue_direct_display_cmd(uint8_t* buff, uint32_t len);
 static func_queue_direct_display_cmd* queue_direct_display_cmd = (func_queue_direct_display_cmd*)0x0003ecbd;
+
+typedef void func_set_queued_display_req(uint8_t* buff);
+static func_set_queued_display_req* set_queued_display_req = (func_set_queued_display_req*)0x0001e791;
 
 // button
 uint8_t get_key_state();

@@ -5,10 +5,11 @@
 #define CLICK_DELAY_DOWN 5
 
 enum Button {
-    KeyUp    = 0,
-    KeyLeft  = 1,
-    KeyRight = 2,
-    KeyDown  = 3
+    KeyUp     = 0,
+    KeyLeft   = 1,
+    KeyRight  = 2,
+    KeyRRight = 4,
+    KeyDown   = 3
 };
 
 int checkButton(enum Button button);

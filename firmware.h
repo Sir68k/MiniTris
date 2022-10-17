@@ -1,7 +1,9 @@
 #ifndef FIRMWARE_H
 #define FIRMWARE_H
 
-#ifdef FW_S16
+#include <stdint.h>
+
+#if defined FW_S16
     #include "./firmware/firmware_S1.6.h"
 #elif defined FW_S15
     #include "./firmware/firmware_S1.5.h"
@@ -9,10 +11,12 @@
     #include "./firmware/firmware_S1.4.h"
 #elif defined FW_S13
     #include "./firmware/firmware_S1.3.h"
+#elif defined FW_S12
+    #include "./firmware/firmware_S1.2.h"
 #elif defined FW_S11
     #include "./firmware/firmware_S1.1.h"
 #elif defined FW_S10
-    #include "./firmware/firmware_S1.1.h"
+    #include "./firmware/firmware_S1.0.h"
 #endif
 
 #endif

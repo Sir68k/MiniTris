@@ -5,7 +5,7 @@
 
 #define DISPLAY_CHARS 5
 
-#define CMD_CHAR_OFFSET 4
+#define CMD_CHAR_OFFSET 0
 #define CHAR_H  7
 #define CHAR_W  5
 #define CHAR_MEM_OFFSET 1

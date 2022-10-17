@@ -36,8 +36,8 @@ OBJS = $(patsubst %.c,build/objs/%.o,$(SRCS))
 #CFLAGS += $(foreach d,$(DEFINES),-D$(d))
 
 all: build/minitris.bin
-	hexdump -v -e '"\\" "x" 1/1 "%02X"' build/minitris.bin > build/minitris_str_${TARGET_VERSION}.hex
-	hexdump -v -e '1/1 "%02X"' build/minitris.bin > build/minitris_${TARGET_VERSION}.hex
+	hexdump -v -e '"\\" "x" 1/1 "%02X"' build/minitris.bin > hex_builds/minitris_${TARGET_VERSION}.shex
+	hexdump -v -e '1/1 "%02X"' build/minitris.bin > hex_builds/minitris_${TARGET_VERSION}.hex
 	wc -c build/minitris.bin
 	cp build/minitris.bin build/minitris_${TARGET_VERSION}.bin
 
@@ -57,11 +57,11 @@ build/minitris.bin: build/minitris.elf build/minitris.lst
 	$(SZ) $<
 
 build/minitris.lst: build/minitris.elf build
-	$(ODUMP) -D $< > $@
+	$(ODUMP)  --prefix-addresses -D $< > $@
 
 build/minitris.elf: $(OBJS)
 	@echo "Linking $@"
 	$(LD) $^ $(LDFLAGS) -o $@
 
 clean:
-	rm -rf build/*
+	rm -rf build/objs build/minitris.*

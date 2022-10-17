@@ -5,7 +5,8 @@ typedef void func1(uint32_t a);
 typedef void func2(uint32_t a, uint32_t b);
 
 // general
-uint8_t reset();
+static func* reset = (func*)0x3c; // jump to boot
+
 
 // tron
 

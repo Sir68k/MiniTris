@@ -7,18 +7,17 @@ typedef void func2(uint32_t a, uint32_t b);
 // general
 static func* reset = (func*)0x3c; // jump to boot
 
-
 // tron
 
-static func1* tron_ter_task = (func1*)0x75a3d;
-static func1* tron_dly_tsk = (func1*)0x0007567d;
+static func1* tron_ter_task = (func1*)0x7bb41;
+static func1* tron_dly_tsk = (func1*)0x7b781;
 
 // time 
 uint32_t get_sys_ltime();
 
 // display
 typedef void func_queue_direct_display_cmd(uint8_t* buff, uint32_t len);
-static func_queue_direct_display_cmd* queue_direct_display_cmd = (func_queue_direct_display_cmd*)0x3ad21;
+static func_queue_direct_display_cmd* queue_direct_display_cmd = (func_queue_direct_display_cmd*)0x3e7c9;
 
 // button
 uint8_t get_key_state();

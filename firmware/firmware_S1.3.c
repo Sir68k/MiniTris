@@ -9,8 +9,3 @@ static volatile uint8_t* _key_state = (uint8_t*)0x02000778;
 uint8_t inline get_key_state() {
     return *_key_state;
 }
-
-static volatile uint32_t* reset_ptr = (uint32_t*)0x02100000;
-uint8_t reset() {
-    return *reset_ptr; // will cause data and reset
-}

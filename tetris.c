@@ -48,7 +48,7 @@ static void gameOver()
   queue_direct_display_cmd("\xc0\x00 GAME ",8);
   update_display(); 
   tron_dly_tsk(100);
-  
+
   queue_direct_display_cmd("\xc0\x00 OVER ",8);
   update_display(); 
   tron_dly_tsk(200);
@@ -135,7 +135,7 @@ void playTetris()
     } 
     
     //Move tetromino right
-    if(checkButton(KeyRight))
+    if(checkButton(KeyRight)||checkButton(KeyRRight))
     {
       if (!checkCollision(t_block, t_size, t_x+1, t_y))
         t_x++;
