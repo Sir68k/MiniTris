@@ -18,7 +18,7 @@ CFLAGS +=   -nostdlib\
 			-ffreestanding \
 			-march=armv4t \
 			-mtune=arm7tdmi \
-			-mthumb-interwork \
+			-mthumb-interwork -mthumb\
 			-ffunction-sections \
 			-O1 \
 			-fcaller-saves -fcode-hoisting  -fcrossjumping  -fcse-follow-jumps  -fcse-skip-blocks  -fdelete-null-pointer-checks  -fexpensive-optimizations  -ffinite-loops  -fgcse  -fgcse-lm   -fhoist-adjacent-loads  -finline-functions   -findirect-inlining  -fipa-bit-cp  -fipa-cp  -fipa-icf  -fipa-ra  -fipa-sra  -flra-remat  -foptimize-sibling-calls    -fpartial-inlining  -fpeephole2 -freorder-functions  -frerun-cse-after-loop      -fsched-interblock  -fsched-spec  -fstore-merging  -fstrict-aliasing   -ftree-builtin-call-dce   -ftree-pre -ftree-switch-conversion  -ftree-tail-merge  -ftree-vrp 
@@ -57,7 +57,7 @@ build/minitris.bin: build/minitris.elf build/minitris.lst
 	$(SZ) $<
 
 build/minitris.lst: build/minitris.elf build
-	$(ODUMP)  --prefix-addresses -D $< > $@
+	$(ODUMP) -D $< > $@
 
 build/minitris.elf: $(OBJS)
 	@echo "Linking $@"

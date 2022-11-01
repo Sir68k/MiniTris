@@ -6,6 +6,7 @@
 static const uint8_t tetrominos[]  = {0b00001111, 0b11001100, 0b01001110, 0b01101100, 0b11000110, 0b10001110, 0b00101110};
 static const uint8_t tetrominosS[] = {4, 2, 3, 3, 3, 3, 3};
 
+
 static uint8_t getTetrominoBlock(uint8_t tetromino[], uint8_t x, uint8_t y)
 {  
    return (tetromino[y/2] >> 7-(y%2*4 + x) ) & 1;
@@ -70,11 +71,13 @@ static int displayGetLine(int x) {
   return res;
 }
 
+
 void playTetris()
 {
   //clear_display();
   
-  uint8_t t_type    = get_sys_ltime() % 7; // RANDOM
+  uint8_t t_type    = get_sys_ltime() & 7;// % 7; // RANDOM
+  if (t_type==7) t_type=0;
   uint8_t t_block[] = {tetrominos[t_type], 0};
   uint8_t t_size    = tetrominosS[t_type];
   int8_t t_x        = 2;
@@ -107,7 +110,8 @@ void playTetris()
       if (checkCollision(t_block, t_size, t_x, t_y + 1))
       {
         drawTetromino(t_block, t_size, t_x, t_y, 1);
-        t_type    = millis % 7; //RANDOM
+        t_type    = millis & 7; //RANDOM
+        if (t_type==7) t_type=0;
         t_block[0] = tetrominos[t_type];
         t_block[1] = 0; 
         t_size    = tetrominosS[t_type];
@@ -125,9 +129,11 @@ void playTetris()
        
       update = 1;
     }
-   
+
+    update_buttons();
+
     //Move tetromino left
-    if(checkButton(KeyLeft))
+    if(check_button(KeyLeft))
     {
       if (!checkCollision(t_block, t_size, t_x-1, t_y))
         t_x--;
@@ -135,7 +141,7 @@ void playTetris()
     } 
     
     //Move tetromino right
-    if(checkButton(KeyRight)||checkButton(KeyRRight))
+    if(check_button(KeyRight))
     {
       if (!checkCollision(t_block, t_size, t_x+1, t_y))
         t_x++;
@@ -143,7 +149,7 @@ void playTetris()
     } 
   
     //Rotate tetromino
-    if(checkButton(KeyUp))
+    if(check_button(KeyUp))
     {
       uint8_t t[] = {0, 0};
       rotateTetromino(t_block, t_size, t);
@@ -179,7 +185,7 @@ void playTetris()
     }
     
     //Move tetromino down. There is a reason it's here on the end.
-    if (checkButton(KeyDown))
+    if (check_button(KeyDown))
     {
       //Basically, we make that the falldown routine will get called. Less work and you can hard place blocks this way :)
       last_move = 0;

@@ -17,7 +17,7 @@ static uint8_t display_cmd_buffer[] = {
 static uint8_t display_mod_buffer[] = {0xD0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 
-void set_pixel(int x, int y, int v) {
+void __attribute__((target("arm"))) set_pixel(int x, int y, int v) {
     int c_char = x / CHAR_W;
     int column = CHAR_W - (x  % CHAR_W);// CHAR_MEM_OFFSET;
 
@@ -26,7 +26,7 @@ void set_pixel(int x, int y, int v) {
     *byte_ptr = (*byte_ptr & ~(1 << column)) | (v << column);
 }
 
-int read_pixel(int x, int y) {
+int __attribute__((target("arm"))) read_pixel(int x, int y) {
     if ( x > (CHAR_W * DISPLAY_CHARS - 1) || y > (CHAR_H - 1) || y < 0)
         return 1;
 

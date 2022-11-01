@@ -5,14 +5,14 @@
 #define CLICK_DELAY_DOWN 5
 
 enum Button {
-    KeyUp     = 0,
-    KeyLeft   = 1,
-    KeyRight  = 2,
-    KeyRRight = 4,
-    KeyDown   = 3
+    KeyUp       = 1,
+    KeyLeft     = 2,
+    KeyRight    = 4,
+    KeyDown     = 8
 };
 
-int checkButton(enum Button button);
-void setupButtons(void);
+int check_button(enum Button button);
+void update_buttons(void);
+void setup_buttons(void);
 
 #endif
