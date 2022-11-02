@@ -11,8 +11,6 @@ enum Button {
     KeyDown     = 8
 };
 
-int check_button(enum Button button);
-void update_buttons(void);
-void setup_buttons(void);
+enum Button get_current_button(void);
 
 #endif

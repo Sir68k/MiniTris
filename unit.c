@@ -1,0 +1,5 @@
+#include "firmware.c"
+#include "display.c"
+#include "button.c"
+#include "tetris.c"
+#include "main.c"

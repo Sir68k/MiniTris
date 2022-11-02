@@ -1,4 +1,4 @@
-#include "firmware_S1.6.h"
+#include "firmware_S1.5.h"
 
 static volatile uint32_t* _sys_ltime = (uint32_t*)0x02001050;
 uint32_t get_sys_ltime() {

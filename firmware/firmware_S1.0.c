@@ -1,7 +1,7 @@
-#include "firmware_S1.1.h"
+#include "firmware_S1.0.h"
 
-static volatile uint32_t* _sys_ltime = (uint32_t*)0x02001074;
-uint32_t get_sys_ltime() {
+ volatile uint32_t* _sys_ltime = (uint32_t*)0x02001074;
+uint32_t inline get_sys_ltime() {
     return *_sys_ltime;
 }
 

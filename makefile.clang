@@ -6,7 +6,7 @@ else
 	NO_ECHO := @
 endif
 
-CC      = $(GCC_PATH)/arm-none-eabi-gcc
+CC      = clang
 LD      = $(GCC_PATH)/arm-none-eabi-ld
 OCPY    = $(GCC_PATH)/arm-none-eabi-objcopy
 ODUMP   = $(GCC_PATH)/arm-none-eabi-objdump
@@ -16,23 +16,23 @@ MKDIR   = mkdir
 
 CFLAGS +=   -nostdlib\
 			-ffreestanding \
-			-march=armv4t \
+			--target=arm-none-eabi \
 			-mtune=arm7tdmi \
-			-mthumb-interwork -mthumb\
+			-mthumb\
 			-ffunction-sections \
-			-Os
-			
+			-Os \
+
 #-fdata-sections
 
 LDFLAGS += -T cxd2680.ld #--just-symbols cxd2680v1.6.sym 
-SRCSs = unit.c 
 SRCS = firmware.c display.c button.c tetris.c main.c 
 INCLUDES += ./
 
-TARGET_VERSION=S10
+TARGET_VERSION=S16
 
 CFLAGS += $(foreach i,$(INCLUDES),-I$(i)) -DFW_${TARGET_VERSION}=1
 OBJS = $(patsubst %.c,build/objs/%.o,$(SRCS))
+#CFLAGS += $(foreach d,$(DEFINES),-D$(d))
 
 all: build/minitris.bin
 	hexdump -v -e '"\\" "x" 1/1 "%02X"' build/minitris.bin > hex_builds/minitris_${TARGET_VERSION}.shex

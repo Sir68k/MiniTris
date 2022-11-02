@@ -10,6 +10,6 @@
     #include "./firmware/firmware_S1.2.c"
 #elif defined FW_S11
     #include "./firmware/firmware_S1.1.c"
-#elif defined FW_S10
+#else // defined FW_S10
     #include "./firmware/firmware_S1.0.c"
 #endif

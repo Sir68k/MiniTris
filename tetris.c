@@ -72,7 +72,7 @@ static int displayGetLine(int x) {
 }
 
 
-void playTetris()
+void playTetris(void)
 {
   //clear_display();
   
@@ -130,10 +130,10 @@ void playTetris()
       update = 1;
     }
 
-    update_buttons();
+    enum Button button = get_current_button();
 
     //Move tetromino left
-    if(check_button(KeyLeft))
+    if(button == KeyLeft)
     {
       if (!checkCollision(t_block, t_size, t_x-1, t_y))
         t_x--;
@@ -141,7 +141,7 @@ void playTetris()
     } 
     
     //Move tetromino right
-    if(check_button(KeyRight))
+    if(button == KeyRight)
     {
       if (!checkCollision(t_block, t_size, t_x+1, t_y))
         t_x++;
@@ -149,7 +149,7 @@ void playTetris()
     } 
   
     //Rotate tetromino
-    if(check_button(KeyUp))
+    if (button  == KeyUp)
     {
       uint8_t t[] = {0, 0};
       rotateTetromino(t_block, t_size, t);
@@ -185,7 +185,7 @@ void playTetris()
     }
     
     //Move tetromino down. There is a reason it's here on the end.
-    if (check_button(KeyDown))
+    if (button == KeyDown)
     {
       //Basically, we make that the falldown routine will get called. Less work and you can hard place blocks this way :)
       last_move = 0;

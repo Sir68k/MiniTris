@@ -5,18 +5,19 @@
 
 #define DISPLAY_CHARS 5
 
-#define CMD_CHAR_OFFSET 0
+#define CMD_CHAR_OFFSET 2
 #define CHAR_H  7
 #define CHAR_W  5
-#define CHAR_MEM_OFFSET 1
-#define CHAR_MEM_SIZE  8
-
-#define CMD_LENGTH (CMD_CHAR_OFFSET + CHAR_MEM_SIZE * DISPLAY_CHARS)
+#define CHAR_CMD_SIZE  10
 
 void set_pixel(int x, int y, int v);
 int read_pixel(int x, int y);
 void setup_display();
 void update_display();
-void clear_display();
+
+enum LCD_Command {
+    WRITE_CHAR_RAM = 0xD0,
+    SET_TEXT       = 0xC0
+};
 
 #endif

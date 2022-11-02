@@ -1,3 +1,6 @@
+#ifndef FIRMWARE_H
+#define FIRMWARE_H
+
 #include <stdint.h>
 
 typedef void func(void);
@@ -48,3 +51,5 @@ enum KeyState {
 
 //typedef int func__aeabi_idiv(int a, int b);
 //static func__aeabi_idiv*const __aeabi_idiv = (func__aeabi_idiv*)0x0007cba9;
+
+#endif
